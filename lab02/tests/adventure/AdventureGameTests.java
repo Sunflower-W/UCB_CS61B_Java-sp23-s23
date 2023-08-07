@@ -41,7 +41,7 @@ public class AdventureGameTests {
 
     @ParameterizedTest
     @DisplayName("Incorrect inputs")
-    @ValueSource(strings = {"BeeCountingStage", "SpeciesListStage", "PalindromeStage", "MachineStage"})
+    @ValueSource(strings = {"BeeCountingStage","SpeciesListStage", "PalindromeStage", "MachineStage"}) //
     public void testStageIncorrect(String stage, CaptureSystemOutput.OutputCapture capture) {
         runUntilStage(stage, "incorrectInput.txt", "incorrectAnswers.txt", capture,
                 "Game output for incorrect inputs on " + stage + " does not match");
