@@ -34,9 +34,9 @@ public class Experiments {
     }
 
     public static TimingData exampleFibonacciExperiment() {
-        List<Integer> Ns = new ArrayList<>();
-        List<Double> times = new ArrayList<>();
-        List<Integer> opCounts = new ArrayList<>();
+        List<Integer> Ns = new ArrayList<>(); // The size of the data structure, or how many elements it contains.
+        List<Double> times = new ArrayList<>(); // The total time required for all operations, in seconds.
+        List<Integer> opCounts = new ArrayList<>(); // The number of operations made during the experiment.
 
         // We're computing each fibonacci number 100 times to get a more stable number
         int ops = 100;
@@ -60,8 +60,18 @@ public class Experiments {
         List<Integer> opCounts = new ArrayList<>();
 
         // TODO: YOUR CODE HERE
+        for (int N = 1000; N <= 128000; N = N * 2) {
+            Ns.add(N);
+            opCounts.add(N);
+            Stopwatch sw = new Stopwatch();
+            AList lst = new AList<>();
+            for (int i = 0; i < N; i++) {
+                lst.addLast(N);
+            }
+            times.add(sw.elapsedTime());
+        }
 
-        return null;
+        return new TimingData(Ns, times, opCounts);
     }
 
 
@@ -71,16 +81,30 @@ public class Experiments {
         List<Integer> opCounts = new ArrayList<>();
 
         // TODO: YOUR CODE HERE
+        int M = 10000;
+        for (int N = 1000; N <= 128000; N = N * 2) {
+            SLList lst = new SLList<>();
+            Ns.add(N);
+            opCounts.add(M);
+            Stopwatch sw = new Stopwatch();
+            for (int i = 0; i < M; i++) {
+                lst.getLast();
+            }
+            times.add(sw.elapsedTime());
+        }
 
-        return null;
-
+        return new TimingData(Ns, times, opCounts);
     }
 
     public static void main(String[] args) {
         // TODO: Modify the following line to change the experiment you're running
-        TimingData td = exampleFibonacciExperiment();
+//        TimingData td = exampleFibonacciExperiment();
+//        TimingData td = timeAListConstruction();
+        TimingData td = timeSLListGetLast();
         // Modify this line to make the chart title make sense
-        String title = "Naive Recursive Fibonacci";
+//        String title = "Naive Recursive Fibonacci";
+        String title = "Naive Recursive AList";
+//        String title = "Naive Recursive SLList";
 
         // Convert "times" (in seconds) and "opCounts" to nanoseconds / op
         List<Double> timesUsPerOp = new ArrayList<>();
