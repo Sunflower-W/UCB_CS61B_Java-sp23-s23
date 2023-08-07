@@ -79,7 +79,7 @@ public class RandomChooserIntegrationTest {
     )
     public void testPlayGameWithRandomChooser(Map<String, String> arguments, String expectedOutput, CaptureSystemOutput.OutputCapture capture) throws IOException {
         // Parse arguments
-        int seed = Integer.parseInt(arguments.get("seed"));
+        int seed = Integer.parseInt(arguments.get("seed")); // 将字符串参数转换为带符号的整数，i.e. 字符1对应的ASCII码是49
         int length = Integer.parseInt(arguments.get("word length"));
         int wrongAllowed = Integer.parseInt(arguments.get("max wrong guesses"));
         String guesses = arguments.get("guesses");

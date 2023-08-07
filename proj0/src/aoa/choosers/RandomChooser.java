@@ -17,12 +17,12 @@ public class RandomChooser implements Chooser {
     public RandomChooser(int wordLength, String dictionaryFile) {
         // TODO: Fill in/change this constructor.
 //        chosenWord = "";
-        new IllegalStateException(String.valueOf(wordLength == 0));
-//        assertThat(wordLength).isGreaterThan(0);
-//        assertThrows(IllegalArgumentException.class, wordLength < 1);
+        // You should throw an `IllegalArgumentException` if `wordLength` is less than one.
+        if (wordLength <= 0) throw new IllegalArgumentException("argument must be positive: " + wordLength);
         List<String> words = FileUtils.readWordsOfLength(dictionaryFile, wordLength);
-        new IllegalStateException(String.valueOf(words.isEmpty()));
-        int numWords = words.size(); // Words is a list of the desired length in sorted order.
+        // You should throw an `IllegalStateException` if there are no words found of `wordLength`.
+        if (words.isEmpty()) throw new IllegalStateException("list cannot be empty:" + words);
+        int numWords = words.size(); // Words is a list of the desired length in sorted order. i.e. the output of calling `readWordsOfLength` from `FileUtils.java` in `utils`.
         int randomlyChosenWordNumber = StdRandom.uniform(numWords);
         chosenWord = words.get(randomlyChosenWordNumber);
     }
