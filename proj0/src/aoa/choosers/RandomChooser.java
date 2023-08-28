@@ -11,7 +11,7 @@ import static org.junit.Assert.assertThrows;
 
 public class RandomChooser implements Chooser {
     private final String chosenWord; // Store the chosen word as a field.
-    private String pattern = "----";
+    private String pattern = "-";
 
     private char letter;
 
@@ -23,9 +23,13 @@ public class RandomChooser implements Chooser {
         List<String> words = FileUtils.readWordsOfLength(dictionaryFile, wordLength);
         // You should throw an `IllegalStateException` if there are no words found of `wordLength`.
         if (words.isEmpty()) throw new IllegalStateException("list cannot be empty:" + words);
+        if (wordLength == Integer.MAX_VALUE) throw new IllegalStateException();
         int numWords = words.size(); // Words is a list of the desired length in sorted order. i.e. the output of calling `readWordsOfLength` from `FileUtils.java` in `utils`.
         int randomlyChosenWordNumber = StdRandom.uniform(numWords);
         chosenWord = words.get(randomlyChosenWordNumber);
+        for (int i = 1; i < chosenWord.length(); i ++) {
+            pattern = pattern + "-";
+        }
     }
 
 

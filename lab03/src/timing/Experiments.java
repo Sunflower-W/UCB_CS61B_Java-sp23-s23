@@ -45,7 +45,7 @@ public class Experiments {
             Ns.add(N);
             opCounts.add(ops);
             Stopwatch sw = new Stopwatch();
-            for (int j = 0; j < ops; j++) {
+            for (int j = 0; j < ops; j++) { //计算10-30间每个fib数100此所需要的时间
                 int fib = fib(N);
             }
             times.add(sw.elapsedTime());
@@ -61,12 +61,15 @@ public class Experiments {
 
         // TODO: YOUR CODE HERE
         for (int N = 1000; N <= 128000; N = N * 2) {
+//        for (int N = 1000; N <= 10000000; N = N * 2) {
             Ns.add(N);
             opCounts.add(N);
             Stopwatch sw = new Stopwatch();
-            AList lst = new AList<>();
+            AList lst = new AList();
+//            Item[] lst = (Item[]) new Object();
             for (int i = 0; i < N; i++) {
-                lst.addLast(N);
+                lst.addLast(0);
+//                lst.size() += 1;
             }
             times.add(sw.elapsedTime());
         }
@@ -83,7 +86,10 @@ public class Experiments {
         // TODO: YOUR CODE HERE
         int M = 10000;
         for (int N = 1000; N <= 128000; N = N * 2) {
-            SLList lst = new SLList<>();
+            SLList lst = new SLList();
+            for (int i=0; i < N; i ++) {
+                lst.addLast(0);
+            }
             Ns.add(N);
             opCounts.add(M);
             Stopwatch sw = new Stopwatch();
@@ -103,8 +109,8 @@ public class Experiments {
         TimingData td = timeSLListGetLast();
         // Modify this line to make the chart title make sense
 //        String title = "Naive Recursive Fibonacci";
-        String title = "Naive Recursive AList";
-//        String title = "Naive Recursive SLList";
+//        String title = "Naive Recursive AList";
+        String title = "Naive Recursive SLList";
 
         // Convert "times" (in seconds) and "opCounts" to nanoseconds / op
         List<Double> timesUsPerOp = new ArrayList<>();
