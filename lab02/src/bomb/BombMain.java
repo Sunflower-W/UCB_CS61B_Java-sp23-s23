@@ -19,7 +19,7 @@ public class BombMain {
             b.phase1(lst); // Figure this out too
         }
         if (phase >= 2) {
-//            b.phase2("Figure this out. I wonder where the phases are defined...");
+//          b.phase2("Figure this out. I wonder where the phases are defined...");
             String password = ""; // You'll need constructed a sufficiently `String` so that 1337 is a valid index.
             for(int i = 0; i < 1338; i++) {
                 if (i != 1337) {
