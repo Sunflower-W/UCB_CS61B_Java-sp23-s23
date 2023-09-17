@@ -150,8 +150,9 @@ public class LinkedListDeque<T> implements Deque<T> {
     private T getRecursive(int index, Node node) {
         if ((index < 0) || (index >= size) || (size == 0)) {
             return null;
-        }
-        else {
+        } else if (index == 0) {
+            return node.next.item;
+        } else {
             return getRecursive(index - 1, node.next); // ！（通过传递参数）实现递归
         }
     }

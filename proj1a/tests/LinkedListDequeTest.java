@@ -101,9 +101,11 @@ public class LinkedListDequeTest {
         Deque<Integer> lld1 = new LinkedListDeque<>();
 //        lld1.addLast(333);
         lld1.addFirst(333);
+        lld1.addLast(0);
         assertWithMessage("get receives an invalid index").that(lld1.getRecursive(28723)).isEqualTo(null);
         assertWithMessage("get receives an invalid index").that(lld1.getRecursive(-1)).isEqualTo(null);
         assertThat(lld1.getRecursive(0)).isEqualTo(333);
+        assertThat(lld1.getRecursive(1)).isEqualTo(0);
     }
 
     @Test
@@ -117,7 +119,7 @@ public class LinkedListDequeTest {
         lld1.removeLast();
         assertThat(lld1.toList()).containsExactly("1", "2").inOrder();
         assertThat(lld1.size()).isEqualTo(2);
-        lld1.removeFirst();
+        assertThat(lld1.removeFirst()).contains("1");
         lld1.removeLast();
         assertThat(lld1.removeLast()).isNull();
     }
