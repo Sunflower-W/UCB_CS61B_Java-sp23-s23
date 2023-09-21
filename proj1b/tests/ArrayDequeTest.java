@@ -31,22 +31,35 @@ public class ArrayDequeTest {
         ad.addLast(2);
         ad.addFirst(1);
         assertThat(ad.toList()).containsExactly(1, 2);
-        ad.removeLast();
-        assertThat(ad.toList()).containsExactly(1);
+        ad.addLast(3);
+        assertThat(ad.toList()).containsExactly(1, 2, 3);
         ad.removeFirst();
+        assertThat(ad.toList()).containsExactly(2, 3);
+        ad.removeFirst();
+        ad.removeLast();
         assertThat(ad.removeLast()).isNull();
     }
 
     @Test
     public void resizeDownTest() {
         Deque<Integer> ad1 = new ArrayDeque<>();
-        for (int i = 0; i <10000; i ++) {
+        for (int i = 0; i < 33; i ++) {
             ad1.addLast(0);
         }
-        assertThat(ad1.size()).isEqualTo(10000);
-        for (int j = 0; j < 9999; j ++) {
+        assertThat(ad1.size()).isEqualTo(33);
+        for (int j = 0; j < 25; j ++) {
             ad1.removeFirst();
         }
-        assertThat(ad1.size()).isLessThan(30);
+        assertThat(ad1.size()).isLessThan(16);
+
+        Deque<Integer> ad2 = new ArrayDeque<>();
+        for (int i = 0; i <10000; i ++) {
+            ad2.addLast(0);
+        }
+        assertThat(ad2.size()).isEqualTo(10000);
+        for (int j = 0; j < 9999; j ++) {
+            ad2.removeFirst();
+        }
+        assertThat(ad2.size()).isLessThan(30);
     }
 }

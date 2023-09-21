@@ -43,17 +43,31 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     private void resizeDown(int capacity) {
+//        T[] a = (T[]) new Object[capacity];
+//        if (nextFirst + 1 > capacity - 1) {
+//            nextFirst = nextFirst - capacity;
+//        } // 若没有此处判断，多次缩减后会导致下方else中a超界
+//        for(int i = 0; i < size; i++){
+//            if(nextFirst + 1 + i < capacity){
+//                a[nextFirst + 1 + i] = items[nextFirst + 1 + i];
+//            }
+//            else{
+//                a[nextFirst + 1 + i - capacity] = items[nextFirst + 1 + i]; // 否则继续赋前面的值 Index 2048 out of bounds for length 2048
+//            }
+//        }
+////        nextFirst = capacity - 1;
+//        nextLast = nextFirst + 1 + size - capacity;
         T[] a = (T[]) new Object[capacity];
-        for(int i = 0; i < size; i++){
-            if(nextFirst + 1 + i < size){
+//        nextFirst = capacity;
+        for (int i = 0; i < size; i ++) {
+            if(nextFirst + 1 + i < items.length) {
                 a[i] = items[nextFirst + 1 + i];
             }
-            else{
-                a[i] = items[nextFirst + 1 + i - size]; // 否则继续赋前面的值
+            else {
+                a[i] = items[nextFirst + 1 + i - items.length];
             }
         }
-        nextFirst = capacity - 1;
-        nextLast = size;
+        nextFirst = size;
         items = a;
     }
     @Override
@@ -62,7 +76,7 @@ public class ArrayDeque<T> implements Deque<T> {
             resize(size * 2);
         }
         if(nextFirst < 0){
-            nextFirst = size - 1;
+            nextFirst = items.length - 1;
         }
         items[nextFirst] = x;
         nextFirst -= 1;
@@ -74,12 +88,25 @@ public class ArrayDeque<T> implements Deque<T> {
         if(size == items.length){
             resize(size * 2);
         }
-        if(nextLast == items.length){
+//        if (nextLast == items.length) {
+//            nextLast = 0;
+//        }
+        items[nextLast] = x;
+        size += 1;
+        if (nextLast < items.length - 1) {
+            nextLast += 1;
+        }
+        else {
             nextLast = 0;
         }
-        items[nextLast] = x;
-        nextLast += 1;
-        size += 1;
+
+//        if(nextLast + 1 == items.length){
+//            nextLast = 0;
+//        }
+//        else {
+//            nextLast += 1;
+//        }
+
     }
 
     @Override
@@ -118,11 +145,25 @@ public class ArrayDeque<T> implements Deque<T> {
         }
         if (items.length > 16){
             if ((float)size/ items.length < 0.5) {
-                resizeDown(items.length / 2 + 1);
+//                填满率至少25% resizeDown(items.length / 2 + 1);
+                resizeDown((int)Math.ceil(items.length / 2));
             }
         }
-        T a = items[0];
-        items[0] = null;
+        T a;
+        if (nextFirst + 1 < items.length) {
+            a = items[nextFirst + 1];
+            items[nextFirst + 1] = null;
+        }
+        else {
+            a = items[nextFirst + 1 - items.length];
+            items[nextFirst + 1 - items.length] = null;
+        }
+//        nextFirst += 1;
+//        size -= 1;
+//        return a;
+//        T a = items[nextFirst + 1];
+//        items[nextFirst + 1] = null;
+        nextFirst += 1;
         size -= 1;
         return a;
     }
@@ -137,8 +178,9 @@ public class ArrayDeque<T> implements Deque<T> {
                 resizeDown(items.length / 2 + 1);
             }
         }
-        T b = items[size - 1];
-        items[size - 1] = null;
+        T b = items[nextLast - 1];
+        items[nextLast - 1] = null;
+        nextLast -= 1;
         size -= 1;
         return b;
     }
