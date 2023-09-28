@@ -117,7 +117,7 @@ public class ArrayDeque<T> implements Deque<T> {
                 returnList.add(items[nextFirst + 1 + i]);
             }
             else{
-                returnList.add(items[nextFirst + 1 + i - size]);
+                returnList.add(items[nextFirst + 1 + i - items.length]); // 减items.length
             }
         }
         return returnList;

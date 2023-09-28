@@ -6,6 +6,14 @@ import static com.google.common.truth.Truth.assertWithMessage;
 public class ArrayDequeTest {
 
     @Test
+    public void toList() {
+        Deque<Integer> ad1 = new ArrayDeque<>();
+        for (int i = 0; i < 5; i ++) {
+            ad1.addLast(i);
+        }
+        assertThat(ad1.toList()).containsExactly(0, 1, 2, 3, 4);
+    }
+    @Test
     public void isEmptyAndSizeTest() {
         Deque<Character> ad1 = new ArrayDeque<>();
 
