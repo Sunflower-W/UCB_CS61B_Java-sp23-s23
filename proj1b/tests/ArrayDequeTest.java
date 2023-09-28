@@ -70,4 +70,13 @@ public class ArrayDequeTest {
         }
         assertThat(ad2.size()).isLessThan(30);
     }
+
+    @Test
+    public void get() {
+        Deque<Integer> ad1 = new ArrayDeque<>();
+        for (int i = 0; i < 5; i ++) {
+            ad1.addLast(i);
+        }
+        assertThat(ad1.get(0)).isEqualTo(0);
+    }
 }
